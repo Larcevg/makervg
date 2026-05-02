@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makers &amp; Co – Donde tus ideas cobran vida | Villa Gesell</title>
+  <meta name="description" content="Makers & Co – Impresión 3D, Corte Láser, Papelería Creativa y Diseño Web en Villa Gesell. Donde tus ideas cobran vida.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖨️</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- AOS Scroll Animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+  <!-- Swiper (carousel) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <style>
+    /* ===========================
+       CSS VARIABLES
+    =========================== */
+    :root {
+      --color-primary: #FF6B35;
+      --color-secondary: #1A1A2E;
+      --color-dark: #0F0F0F;
+      --color-light: #F5F5F5;
+      --color-accent: #E63946;
+      --color-card: #16213E;
+      --color-text: #CCCCCC;
+      --color-white: #FFFFFF;
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Raleway', sans-serif;
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow: 0 10px 40px rgba(0,0,0,0.35);
+      --radius: 8px;
+    }
+
+    /* ===========================
+       RESET & BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-dark);
+      color: var(--color-text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      color: var(--color-white);
+      line-height: 1.2;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    .section-title {
+      position: relative;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: var(--color-white);
+      margin-bottom: 12px;
+    }
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--color-primary);
+      margin-bottom: 14px;
+    }
+    .section-title.center { text-align: center; }
+    .section-title.center::before { margin: 0 auto 14px; }
+
+    .section-subtitle {
+      color: var(--color-text);
+      font-size: 1rem;
+      margin-bottom: 40px;
+    }
+    .section-subtitle.center { text-align: center; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+    .btn-primary:hover { background: #e55a24; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,107,53,0.4); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 2px solid var(--color-white);
+    }
+    .btn-outline:hover { background: var(--color-white); color: var(--color-dark); transform: translateY(-2px); }
+
+    .btn-accent {
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+    .btn-accent:hover { background: #c0303c; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(230,57,70,0.4); }
+
+    .accent-text { color: var(--color-primary); }
+    .red-text { color: var(--color-accent); }
+
+    /* ===========================
+       PAGE LOADER
+    =========================== */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--color-dark);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-inner {
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .loader-ring {
+      width: 56px; height: 56px;
+      border: 4px solid rgba(255,107,53,0.2);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    .loader-text {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--color-white);
+      letter-spacing: 2px;
+    }
+    .loader-text span { color: var(--color-primary); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===========================
+       TOPBAR
+    =========================== */
+    #topbar {
+      background: var(--color-secondary);
+      border-bottom: 1px solid rgba(255,107,53,0.15);
+      padding: 8px 0;
+      font-size: 0.8rem;
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .topbar-left {
+      display: flex; align-items: center; gap: 20px; color: var(--color-text);
+    }
+    .topbar-left a { color: var(--color-text); }
+    .topbar-left a:hover { color: var(--color-primary); }
+    .topbar-left i { color: var(--color-primary); margin-right: 5px; }
+    .topbar-social { display: flex; gap: 10px; }
+    .topbar-social a {
+      color: var(--color-text);
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.75rem;
+    }
+    .topbar-social a:hover { background: var(--color-primary); border-color: var(--color-primary); color: white; }
+
+    /* ===========================
+       HEADER MIDDLE BAND
+    =========================== */
+    #header-band {
+      background: var(--color-card);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,107,53,0.1);
+    }
+    .header-band-inner {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
+    }
+    .header-info {
+      display: flex; align-items: center; gap: 10px; font-size: 0.82rem;
+    }
+    .header-info-icon {
+      width: 38px; height: 38px;
+      background: rgba(255,107,53,0.1);
+      border: 1px solid rgba(255,107,53,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-primary); font-size: 0.9rem; flex-shrink: 0;
+    }
+    .header-info-text strong { display: block; color: var(--color-white); font-size: 0.9rem; }
+    .header-info-text span { color: var(--color-text); font-size: 0.78rem; }
+    .header-logo {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .header-logo a { display: flex; align-items: center; }
+    .header-logo img { height: 60px; width: auto; object-fit: contain; }
+    .logo-text-fallback {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: var(--color-white);
+      letter-spacing: -1px;
+    }
+    .logo-text-fallback .amp { color: var(--color-primary); }
+    .header-info-right { justify-content: flex-end; }
+
+    @media (max-width: 768px) {
+      #header-band { display: none; }
+    }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid transparent;
+      transition: var(--transition);
+      padding: 0;
+    }
+    #navbar.scrolled {
+      border-bottom-color: var(--color-primary);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 44px; width: auto; object-fit: contain; }
+    .nav-logo .logo-text-fallback { font-size: 1.2rem; }
+
+    .nav-menu { display: flex; align-items: center; gap: 30px; }
+    .nav-menu a {
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--color-text);
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--color-primary);
+      transition: var(--transition);
+    }
+    .nav-menu a:hover { color: var(--color-white); }
+    .nav-menu a:hover::after { width: 100%; }
+
+    .nav-cta { display: flex; align-items: center; gap: 10px; }
+    .nav-whatsapp {
+      background: #25D366;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-whatsapp:hover { background: #1ebe5a; color: white; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--color-white); border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--color-secondary);
+      padding: 20px;
+      gap: 16px;
+    }
+    .mobile-menu a {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .mobile-menu a:hover { color: var(--color-primary); }
+    .mobile-menu.open { display: flex; }
+
+    @media (max-width: 900px) {
+      .nav-menu, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ===========================
+       HERO SECTION
+    =========================== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: var(--color-dark);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0F0F0F 0%, #1A1A2E 50%, #16213E 100%);
+      overflow: hidden;
+    }
+    /* Animated grid */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,107,53,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,107,53,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(60px); }
+    }
+    /* Floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.3;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .orb-1 { width: 400px; height: 400px; background: var(--color-primary); top: -100px; right: -100px; animation-delay: 0s; }
+    .orb-2 { width: 300px; height: 300px; background: var(--color-accent); bottom: -100px; left: -50px; animation-delay: 3s; }
+    .orb-3 { width: 200px; height: 200px; background: #6B4EFF; top: 50%; left: 50%; animation-delay: 5s; }
+    @keyframes orbFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 80px 20px;
+      max-width: 900px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,107,53,0.1);
+      border: 1px solid rgba(255,107,53,0.3);
+      color: var(--color-primary);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      color: var(--color-white);
+    }
+    .hero-title .brand-name {
+      display: block;
+      background: linear-gradient(135deg, #FF6B35, #E63946);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-slogan {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--color-text);
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+    .hero-slogan em { color: var(--color-primary); font-style: normal; font-weight: 600; }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+    .hero-badges {
+      display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    }
+    .hero-badge {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; color: var(--color-text);
+    }
+    .hero-badge i { color: var(--color-primary); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 30px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--color-text);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--color-primary), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:0.4;transform:scaleY(0.6)} }
+
+    /* ===========================
+       SERVICES QUICK CAROUSEL
+    =========================== */
+    #services-quick {
+      background: var(--color-secondary);
+      padding: 0;
+      position: relative;
+      z-index: 3;
+      box-shadow: 0 -5px 40px rgba(0,0,0,0.4);
+    }
+    .services-quick-slider { padding: 0 !important; }
+    .service-quick-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      height: 280px;
+    }
+    .service-quick-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      filter: brightness(0.5);
+    }
+    .service-quick-card:hover img { transform: scale(1.08); filter: brightness(0.3); }
+    .sqc-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    }
+    .sqc-icon {
+      width: 50px; height: 50px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: white;
+      margin-bottom: 10px;
+      transition: var(--transition);
+    }
+    .sqc-title {
+      font-family: var(--font-heading);
+      font-weight: 700; font-size: 1rem;
+      color: var(--color-white);
+      margin-bottom: 0;
+      transition: var(--transition);
+    }
+    .sqc-desc {
+      font-size: 0.82rem; color: rgba(255,255,255,0.8);
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: all 0.4s ease;
+      margin-top: 0;
+    }
+    .sqc-line {
+      width: 0; height: 2px;
+      background: var(--color-primary);
+      transition: width 0.4s ease;
+      margin: 8px 0;
+    }
+    .service-quick-card:hover .sqc-desc { max-height: 80px; opacity: 1; margin-top: 6px; }
+    .service-quick-card:hover .sqc-line { width: 50px; }
+    .service-quick-card:hover .sqc-icon { transform: scale(1.1); background: var(--color-accent); }
+
+    /* ===========================
+       ABOUT SECTION
+    =========================== */
+    #nosotros {
+      padding: 100px 0;
+      background: var(--color-dark);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-image-wrap { position: relative; }
+    .about-image-wrap img {
+      width: 100%; border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .about-image-accent {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 180px; height: 180px;
+      background: var(--color-primary);
+      border-radius: var(--radius);
+      z-index: -1;
+      opacity: 0.25;
+    }
+    .about-badge {
+      position: absolute;
+      top: 20px; left: -20px;
+      background: var(--color-primary);
+      color: white;
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      text-align: center;
+      font-family: var(--font-heading);
+      box-shadow: var(--shadow);
+    }
+    .about-badge .year { font-size: 2rem; font-weight: 900; line-height: 1; }
+    .about-badge .label { font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .about-text { }
+    .about-features {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin: 28px 0;
+    }
+    .about-feature {
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .about-feature i { color: var(--color-primary); margin-top: 3px; flex-shrink: 0; }
+    .about-feature p { font-size: 0.88rem; }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-features { grid-template-columns: 1fr; }
+      .about-badge { left: 10px; }
+    }
+
+    /* ===========================
+       SERVICES DETAILED SECTION
+    =========================== */
+    #servicios {
+      padding: 100px 0;
+      background: var(--color-secondary);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--color-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); border-color: rgba(255,107,53,0.3); }
+    .service-card-img {
+      position: relative;
+      height: 220px; overflow: hidden;
+    }
+    .service-card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .service-card:hover .service-card-img img { transform: scale(1.06); }
+    .service-card-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(22,33,62,0.9) 0%, transparent 60%);
+    }
+    .service-card-icon {
+      position: absolute;
+      bottom: 16px; left: 16px;
+      width: 44px; height: 44px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: white;
+    }
+    .service-card-body { padding: 24px; }
+    .service-card-body h3 {
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 10px; color: var(--color-white);
+    }
+    .service-card-body p { font-size: 0.85rem; line-height: 1.6; margin-bottom: 14px; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .service-tag {
+      background: rgba(255,107,53,0.1);
+      border: 1px solid rgba(255,107,53,0.2);
+      color: var(--color-primary);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 30px;
+      letter-spacing: 0.5px;
+    }
+    .service-readmore {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .service-readmore i { transition: var(--transition); }
+    .service-readmore:hover i { transform: translateX(4px); }
+
+    /* ===========================
+       3D PRINTING FEATURE
+    =========================== */
+    #feature-3d {
+      padding: 100px 0;
+      background: var(--color-dark);
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .feature-text .section-title { margin-bottom: 20px; }
+    .feature-text p { margin-bottom: 16px; font-size: 0.92rem; }
+    .feature-list { margin: 24px 0; }
+    .feature-list li {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.88rem;
+    }
+    .feature-list li i { color: var(--color-primary); font-size: 0.75rem; }
+    .feature-image-wrap {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .feature-image-wrap img {
+      width: 100%; height: 400px; object-fit: cover;
+      border-radius: var(--radius);
+    }
+    .feature-image-badge {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      background: var(--color-primary);
+      color: white;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-family: var(--font-heading);
+      font-weight: 700; font-size: 0.85rem;
+    }
+    @media (max-width: 768px) {
+      .feature-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* ===========================
+       COUNTERS / STATS
+    =========================== */
+    #stats {
+      padding: 80px 0;
+      background: var(--color-card);
+      position: relative;
+      overflow: hidden;
+    }
+    #stats::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,107,53,0.05) 0%, transparent 50%);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: var(--transition);
+    }
+    .stat-item:hover { border-color: rgba(255,107,53,0.3); transform: translateY(-4px); }
+    .stat-icon {
+      width: 60px; height: 60px;
+      background: rgba(255,107,53,0.1);
+      border: 2px solid rgba(255,107,53,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: var(--color-primary);
+      margin: 0 auto 16px;
+    }
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--color-white);
+      line-height: 1;
+    }
+    .stat-number .suffix { color: var(--color-primary); }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--color-text);
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===========================
+       LASER FEATURE (dark bg)
+    =========================== */
+    #feature-laser {
+      padding: 100px 0;
+      background: var(--color-secondary);
+      position: relative;
+    }
+    .laser-bg-overlay {
+      position: absolute; inset: 0;
+      background: url('images/cutting-plywood.jpg') center/cover no-repeat;
+      opacity: 0.08;
+    }
+    .laser-inner { position: relative; z-index: 1; }
+    .laser-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .laser-image { border-radius: var(--radius); overflow: hidden; }
+    .laser-image img { width: 100%; height: 380px; object-fit: cover; border-radius: var(--radius); }
+    @media (max-width: 768px) { .laser-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+    /* ===========================
+       GALLERY SECTION
+    =========================== */
+    #galeria {
+      padding: 100px 0;
+      background: var(--color-dark);
+    }
+    .gallery-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 30px; align-items: end; margin-bottom: 50px;
+    }
+    .gallery-header p { font-size: 0.92rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 200px;
+      gap: 8px;
+    }
+    .gallery-item {
+      overflow: hidden; border-radius: 4px;
+      position: relative; cursor: pointer;
+      background: var(--color-card);
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(5) { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      filter: brightness(0.8) saturate(0.8);
+    }
+    .gallery-item:hover img { transform: scale(1.08); filter: brightness(0.6) saturate(1.2); }
+    .gallery-item-overlay {
+      position: absolute; inset: 0;
+      background: rgba(255,107,53,0.6);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-overlay i { font-size: 2rem; color: white; }
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
+      .gallery-item:nth-child(5) { grid-column: span 1; }
+      .gallery-header { grid-template-columns: 1fr; }
+    }
+
+    /* ===========================
+       PAYMENT / SHIPPING BANNER
+    =========================== */
+    #info-strip {
+      background: var(--color-card);
+      border-top: 1px solid rgba(255,107,53,0.15);
+      border-bottom: 1px solid rgba(255,107,53,0.15);
+      padding: 24px 0;
+    }
+    .info-strip-inner {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 30px; align-items: center;
+    }
+    .info-strip-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.85rem;
+    }
+    .info-strip-item i { color: var(--color-primary); font-size: 1.1rem; }
+    .info-strip-item strong { color: var(--color-white); }
+
+    /* ===========================
+       CONTACT SECTION
+    =========================== */
+    #contacto {
+      padding: 100px 0;
+      background: var(--color-secondary);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-info { }
+    .contact-info-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .contact-info-icon {
+      width: 46px; height: 46px; flex-shrink: 0;
+      background: rgba(255,107,53,0.1);
+      border: 2px solid rgba(255,107,53,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-primary); font-size: 1rem;
+    }
+    .contact-info-text strong { display: block; color: var(--color-white); font-size: 0.9rem; margin-bottom: 2px; }
+    .contact-info-text span, .contact-info-text a { font-size: 0.85rem; color: var(--color-text); }
+    .contact-info-text a:hover { color: var(--color-primary); }
+
+    .contact-form-wrap {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 36px;
+    }
+    .contact-form-wrap h3 {
+      font-size: 1.3rem; margin-bottom: 24px;
+      padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--color-text); margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: var(--transition);
+      outline: none;
+      appearance: none;
+    }
+    .form-group select option { background: var(--color-card); color: var(--color-white); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--color-primary);
+      background: rgba(255,107,53,0.05);
+      box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit { width: 100%; padding: 14px; font-size: 0.95rem; }
+
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ===========================
+       CAPA 8 SISTER COMPANY
+    =========================== */
+    #capa8 {
+      padding: 60px 0;
+      background: linear-gradient(135deg, var(--color-card) 0%, var(--color-dark) 100%);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .capa8-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 30px;
+      padding: 30px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+    }
+    .capa8-label {
+      font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--color-text);
+      margin-bottom: 8px;
+    }
+    .capa8-name {
+      font-family: var(--font-heading);
+      font-size: 1.5rem; font-weight: 900; color: var(--color-white);
+    }
+    .capa8-name span { color: var(--color-accent); }
+    .capa8-desc { font-size: 0.85rem; color: var(--color-text); margin-top: 6px; }
+    .capa8-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .capa8-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 30px;
+      font-size: 0.82rem; color: var(--color-text);
+    }
+    .capa8-link:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .capa8-link i { color: var(--color-accent); }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    #footer {
+      background: #080810;
+      padding: 60px 0 0;
+      border-top: 2px solid rgba(255,107,53,0.15);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-brand .logo-text-fallback { font-size: 1.4rem; margin-bottom: 12px; }
+    .footer-brand .footer-logo-img { height: 50px; width: auto; margin-bottom: 12px; }
+    .footer-slogan {
+      font-style: italic; color: var(--color-text); font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-text); font-size: 0.85rem;
+    }
+    .footer-social a:hover { background: var(--color-primary); border-color: var(--color-primary); color: white; }
+    .footer-col h4 {
+      font-family: var(--font-heading);
+      font-size: 0.85rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--color-white);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--color-primary);
+    }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { font-size: 0.85rem; color: var(--color-text); }
+    .footer-col ul li a:hover { color: var(--color-primary); padding-left: 4px; }
+    .footer-contact-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 12px; font-size: 0.82rem;
+    }
+    .footer-contact-item i { color: var(--color-primary); margin-top: 2px; flex-shrink: 0; }
+    .footer-contact-item a { color: var(--color-text); }
+    .footer-contact-item a:hover { color: var(--color-primary); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 20px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+      font-size: 0.78rem; color: var(--color-text);
+    }
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 580px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===========================
+       WHATSAPP FLOAT + SCROLL TOP
+    =========================== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 80px; right: 24px;
+      z-index: 999;
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; color: white;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      animation: waBounce 3s ease-in-out infinite;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); color: white; }
+    @keyframes waBounce {
+      0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}
+    }
+    .whatsapp-tooltip {
+      position: absolute;
+      right: 66px; top: 50%; transform: translateY(-50%);
+      background: #25D366; color: white;
+      padding: 6px 12px; border-radius: 6px;
+      font-size: 0.78rem; font-weight: 600; white-space: nowrap;
+      opacity: 0; transition: opacity 0.2s ease;
+    }
+    .whatsapp-float:hover .whatsapp-tooltip { opacity: 1; }
+
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 20px; right: 24px;
+      z-index: 998;
+      width: 44px; height: 44px;
+      background: var(--color-primary);
+      border: none; border-radius: 50%;
+      color: white; font-size: 1rem;
+      cursor: pointer;
+      opacity: 0; visibility: hidden;
+      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .scroll-top-btn.visible { opacity: 1; visibility: visible; }
+    .scroll-top-btn:hover { background: #e55a24; transform: translateY(-2px); }
+
+    /* ===========================
+       SECTION PADDING UTILITY
+    =========================== */
+    .pt-0 { padding-top: 0 !important; }
+    .pb-0 { padding-bottom: 0 !important; }
+
+    /* ===========================
+       SWIPER OVERRIDES
+    =========================== */
+    .swiper-pagination-bullet { background: rgba(255,255,255,0.4); }
+    .swiper-pagination-bullet-active { background: var(--color-primary); }
+    .swiper-button-next::after,
+    .swiper-button-prev::after { font-size: 18px; color: var(--color-primary); }
+    .swiper-button-next, .swiper-button-prev {
+      background: rgba(22,33,62,0.8);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+    }
+
+    /* ===========================
+       DECORATIVE SECTION DIVIDER
+    =========================== */
+    .section-divider {
+      height: 4px;
+      background: linear-gradient(to right, transparent, var(--color-primary), var(--color-accent), transparent);
+    }
+
+    /* ===========================
+       RESPONSIVE FIXES
+    =========================== */
+    @media (max-width: 768px) {
+      #hero { min-height: 90vh; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .contact-form-wrap { padding: 24px; }
+      .capa8-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================
+       PAGE LOADER
+  ========================= -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-ring"></div>
+      <div class="loader-text">Makers <span>&</span> Co</div>
+    </div>
+  </div>
+
+  <!-- ========================
+       TOPBAR
+  ========================= -->
+  <div id="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="topbar-left">
+          <span><i class="fas fa-map-marker-alt"></i>Villa Gesell, Argentina</span>
+          <span><i class="fas fa-clock"></i>Lun–Sáb 9–19h</span>
+          <a href="https://wa.me/5491155658622" target="_blank">
+            <i class="fab fa-whatsapp"></i>+54 11 5565-8622
+          </a>
+        </div>
+        <div class="topbar-social">
+          <a href="https://instagram.com/makersvg" target="_blank" title="@makersvg"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/5491155658622" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================
+       HEADER BAND (logo center)
+  ========================= -->
+  <div id="header-band">
+    <div class="container">
+      <div class="header-band-inner">
+        <div class="header-info">
+          <div class="header-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="header-info-text">
+            <strong>Villa Gesell, Buenos Aires</strong>
+            <span>Argentina</span>
+          </div>
+        </div>
+        <div class="header-logo">
+          <a href="#hero">
+            <svg width="200" height="60" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+  <!-- Hexagon -->
+  <polygon points="50,5 88,27 88,70 50,92 12,70 12,27" stroke="#FF8C00" stroke-width="2" fill="rgba(255,140,0,0.06)"/>
+  <!-- 3D box face top -->
+  <polygon points="30,52 50,42 70,52 50,62" stroke="#FF8C00" stroke-width="1.5" fill="rgba(255,140,0,0.12)"/>
+  <!-- 3D box face left -->
+  <polygon points="30,52 30,68 50,78 50,62" stroke="rgba(255,140,0,0.6)" stroke-width="1.2" fill="rgba(255,140,0,0.07)"/>
+  <!-- 3D box face right -->
+  <polygon points="70,52 70,68 50,78 50,62" stroke="rgba(255,140,0,0.6)" stroke-width="1.2" fill="rgba(255,140,0,0.09)"/>
+  <!-- Printer nozzle -->
+  <rect x="44" y="14" width="12" height="14" rx="1.5" fill="rgba(255,140,0,0.15)" stroke="#FF8C00" stroke-width="1.5"/>
+  <rect x="46" y="10" width="8" height="6" rx="1" fill="rgba(255,140,0,0.2)" stroke="rgba(255,140,0,0.6)" stroke-width="1"/>
+  <polygon points="48,28 50,32 52,28" fill="#FF8C00"/>
+  <!-- Filament lines -->
+  <path d="M 34,80 C 36,65 42,48 47,38" stroke="rgba(255,140,0,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 40,81 C 43,66 47,50 49,38" stroke="rgba(255,140,0,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 50,82 C 50,67 50,51 50,38" stroke="#FF8C00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M 60,81 C 57,66 53,50 51,38" stroke="rgba(255,140,0,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 66,80 C 64,65 58,48 53,38" stroke="rgba(255,140,0,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Baseline -->
+  <line x1="28" y1="84" x2="72" y2="84" stroke="rgba(255,140,0,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
+  <!-- Nozzle tip glow -->
+  <circle cx="50" cy="32" r="2.5" fill="#FF8C00"/>
+  <circle cx="50" cy="32" r="5" fill="rgba(255,140,0,0.2)"/>
+  <!-- Brand text -->
+  <text x="100" y="52" font-family="'Montserrat','Arial Black',sans-serif" font-weight="900" font-size="26" fill="#FFFFFF" letter-spacing="1">MAKERS &amp; CO.</text>
+  <text x="101" y="72" font-family="'Space Mono','Courier New',monospace" font-size="18" fill="#FF8C00" letter-spacing="4">VILLA GESELL</text>
+</svg>
+          </a>
+        </div>
+        <div class="header-info header-info-right">
+          <div class="header-info-icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="header-info-text">
+            <strong>+54 11 5565-8622</strong>
+            <span>WhatsApp disponible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================
+       NAVBAR (sticky)
+  ========================= -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo">
+          <svg width="190" height="54" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+  <polygon points="50,5 88,27 88,70 50,92 12,70 12,27" stroke="#FF8C00" stroke-width="2" fill="rgba(255,140,0,0.06)"/>
+  <polygon points="30,52 50,42 70,52 50,62" stroke="#FF8C00" stroke-width="1.5" fill="rgba(255,140,0,0.12)"/>
+  <polygon points="30,52 30,68 50,78 50,62" stroke="rgba(255,140,0,0.6)" stroke-width="1.2" fill="rgba(255,140,0,0.07)"/>
+  <polygon points="70,52 70,68 50,78 50,62" stroke="rgba(255,140,0,0.6)" stroke-width="1.2" fill="rgba(255,140,0,0.09)"/>
+  <rect x="44" y="14" width="12" height="14" rx="1.5" fill="rgba(255,140,0,0.15)" stroke="#FF8C00" stroke-width="1.5"/>
+  <rect x="46" y="10" width="8" height="6" rx="1" fill="rgba(255,140,0,0.2)" stroke="rgba(255,140,0,0.6)" stroke-width="1"/>
+  <polygon points="48,28 50,32 52,28" fill="#FF8C00"/>
+  <path d="M 40,81 C 43,66 47,50 49,38" stroke="rgba(255,140,0,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 50,82 C 50,67 50,51 50,38" stroke="#FF8C00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M 60,81 C 57,66 53,50 51,38" stroke="rgba(255,140,0,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="50" cy="32" r="2.5" fill="#FF8C00"/>
+  <text x="100" y="52" font-family="'Montserrat','Arial Black',sans-serif" font-weight="900" font-size="26" fill="#FFFFFF" letter-spacing="1">MAKERS &amp; CO.</text>
+  <text x="101" y="72" font-family="'Space Mono','Courier New',monospace" font-size="18" fill="#FF8C00" letter-spacing="4">VILLA GESELL</text>
+</svg>
+        </a>
+        <ul class="nav-menu">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#nosotros">Empresa</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="https://wa.me/5491155658622?text=Hola!%20Vi%20su%20web%20y%20quiero%20consultar%20sobre%20sus%20servicios"
+             class="nav-whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+        <div class="hamburger" id="hamburger" aria-label="Menú" role="button" tabindex="0">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#hero" class="mobile-link">Home</a>
+      <a href="#nosotros" class="mobile-link">Empresa</a>
+      <a href="#servicios" class="mobile-link">Servicios</a>
+      <a href="#galeria" class="mobile-link">Galería</a>
+      <a href="#contacto" class="mobile-link">Contacto</a>
+      <a href="https://wa.me/5491155658622?text=Hola!%20Vi%20su%20web%20y%20quiero%20consultar%20sobre%20sus%20servicios"
+         target="_blank" class="btn btn-primary" style="text-align:center; margin-top:8px;">
+        <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+      </a>
+    </div>
+  </nav>
+
+  <!-- ========================
+       HERO
+  ========================= -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <i class="fas fa-map-marker-alt"></i>
+        Villa Gesell · Est. 2022
+      </div>
+      <h1 class="hero-title">
+        Fabricación Digital
+        <span class="brand-name">Makers &amp; Co</span>
+      </h1>
+      <p class="hero-slogan">
+        <em>"Donde tus ideas cobran vida"</em>
+      </p>
+      <div class="hero-buttons">
+        <a href="#servicios" class="btn btn-primary">
+          <i class="fas fa-cube" style="margin-right:8px;"></i>Nuestros Servicios
+        </a>
+        <a href="https://wa.me/5491155658622?text=Hola!%20Vi%20su%20web%20y%20quiero%20consultar%20sobre%20sus%20servicios"
+           class="btn btn-outline" target="_blank">
+          <i class="fab fa-whatsapp" style="margin-right:8px;"></i>Pedir Presupuesto
+        </a>
+        <a href="#nosotros" class="btn btn-accent">
+          <i class="fas fa-info-circle" style="margin-right:8px;"></i>Conocenos
+        </a>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge"><i class="fas fa-cube"></i> Impresión 3D</div>
+        <div class="hero-badge"><i class="fas fa-bolt"></i> Corte Láser</div>
+        <div class="hero-badge"><i class="fas fa-palette"></i> Papelería</div>
+        <div class="hero-badge"><i class="fas fa-laptop-code"></i> Sitios Web</div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========================
+       SERVICES QUICK CAROUSEL
+  ========================= -->
+  <section id="services-quick">
+    <div class="swiper services-quick-slider">
+      <div class="swiper-wrapper">
+
+        <!-- 3D Printing -->
+        <div class="swiper-slide">
+          <div class="service-quick-card">
+            <img src="images/2150941983.jpg"
+                 alt="Impresión 3D"
+                 loading="lazy">
+            <div class="sqc-overlay">
+              <div class="sqc-icon"><i class="fas fa-cube"></i></div>
+              <h3 class="sqc-title">Impresión 3D</h3>
+              <div class="sqc-line"></div>
+              <p class="sqc-desc">Figuras, coleccionables, accesorios y mucho más. +5.000 diseños disponibles.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Laser Cutting -->
+        <div class="swiper-slide">
+          <div class="service-quick-card">
+            <img src="images/cutting-plywood.jpg"
+                 alt="Corte y Grabado Láser"
+                 loading="lazy"
+                 onerror="this.src='https://placehold.co/600x400/1A1A2E/FF6B35?text=Corte+Láser'">
+            <div class="sqc-overlay">
+              <div class="sqc-icon"><i class="fas fa-bolt"></i></div>
+              <h3 class="sqc-title">Corte y Grabado Láser</h3>
+              <div class="sqc-line"></div>
+              <p class="sqc-desc">MDF, acrílico y madera. Llaveros, lámparas, letreros y regalos únicos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Graphic Design -->
+        <div class="swiper-slide">
+          <div class="service-quick-card">
+            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80"
+                 alt="Papelería y Diseño Gráfico"
+                 loading="lazy"
+                 onerror="this.src='https://placehold.co/600x400/1A1A2E/FF6B35?text=Diseño+Gráfico'">
+            <div class="sqc-overlay">
+              <div class="sqc-icon"><i class="fas fa-palette"></i></div>
+              <h3 class="sqc-title">Papelería &amp; Diseño Gráfico</h3>
+              <div class="sqc-line"></div>
+              <p class="sqc-desc">Tarjetas, stickers, packaging e identidad visual para tu marca.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Web Design -->
+        <div class="swiper-slide">
+          <div class="service-quick-card">
+            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=80"
+                 alt="Diseño Web"
+                 loading="lazy"
+                 onerror="this.src='https://placehold.co/600x400/1A1A2E/FF6B35?text=Diseño+Web'">
+            <div class="sqc-overlay">
+              <div class="sqc-icon"><i class="fas fa-laptop-code"></i></div>
+              <h3 class="sqc-title">Diseño de Sitios Web</h3>
+              <div class="sqc-line"></div>
+              <p class="sqc-desc">Landing pages y sitios a medida, mobile-first, con WhatsApp integrado.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extra slide for wider screens -->
+        <div class="swiper-slide">
+          <div class="service-quick-card" style="background: var(--color-secondary); display:flex; align-items:center; justify-content:center; height:280px;">
+            <div style="text-align:center; padding:30px;">
+              <div style="font-size:3rem; color:var(--color-primary); margin-bottom:12px;"><i class="fas fa-star"></i></div>
+              <h3 style="font-size:1.1rem; margin-bottom:8px;">¿Tenés un proyecto?</h3>
+              <p style="font-size:0.82rem; margin-bottom:20px;">Escribinos y lo hacemos realidad.</p>
+              <a href="https://wa.me/5491155658622?text=Hola!%20Vi%20su%20web%20y%20quiero%20consultar%20sobre%20sus%20servicios"
+                 class="btn btn-primary" target="_blank" style="font-size:0.78rem; padding:10px 20px;">
+                <i class="fab fa-whatsapp"></i> Consultar
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ========================
+       ABOUT US
+  ========================= -->
+  <section id="nosotros">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-wrap" data-aos="fade-right">
+          <img src="images/printer_desing.png"
+               alt="Makers & Co – Estudio de fabricación digital"
+               loading="lazy"
+               style="border-radius:8px;"
+               onerror="this.src='images/printer_desing2.png'">
+          <div class="about-image-accent"></div>
+          <div class="about-badge">
+            <div class="year">3+</div>
+            <div class="label">Años de<br>experiencia</div>
+          </div>
+        </div>
+
+        <div class="about-text" data-aos="fade-left">
+          <h2 class="section-title">Sobre Nosotros</h2>
+          <p>
+            <strong>Makers &amp; Co</strong> nació en 2022 en Villa Gesell con una misión clara: llevar la
+            fabricación digital al alcance de todos. Somos un estudio creativo especializado en impresión 3D,
+            corte láser, papelería y diseño web.
+          </p>
+          <p style="margin-top:14px;">
+            Cada proyecto es único, cada detalle importa. Trabajamos con emprendedores, marcas y particulares
+            que buscan dar vida a sus ideas con calidad, creatividad y compromiso.
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <p>+5.000 diseños 3D disponibles</p>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <p>+500 diseños láser disponibles</p>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <p>PLA+ biodegradable certificado</p>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <p>Envíos a todo el país</p>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <p>+1.000 clientes satisfechos</p>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <p>Todos los medios de pago</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="#servicios" class="btn btn-primary">Ver Servicios</a>
+            <a href="https://wa.me/5491155658622?text=Hola!%20Quiero%20consultar%20sobre%20sus%20servicios"
+               class="btn btn-outline" target="_blank">
+              <i class="fab fa-whatsapp" style="margin-right:6px;"></i>Escribinos
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       SERVICES DETAILED
+  ========================= -->
+  <section id="servicios">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:50px;">
+        <h2 class="section-title center" data-aos="fade-up">Nuestros Servicios</h2>
+        <p class="section-subtitle center" data-aos="fade-up" data-aos-delay="100">
+          Tecnología y creatividad al servicio de tus proyectos. Presupuesto sin cargo.
+        </p>
+      </div>
+      <div class="services-grid">
+
+        <!-- Service 1: 3D Printing -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="service-card-img">
+            <img src="images/printer_desing2.png"
+                 alt="Impresión 3D"
+                 loading="lazy"
+                 onerror="this.src='images/printer_desing2.png'">
+            <div class="service-card-img-overlay"></div>
+            <div class="service-card-icon"><i class="fas fa-cube"></i></div>
+          </div>
+          <div class="service-card-body">
+            <h3>Impresión 3D</h3>
+            <p>
+              Material PLA+ biodegradable. Más de 5.000 diseños disponibles para elegir o
+              personalizamos el tuyo. Figuras, réplicas, coleccionables, decoración y mucho más.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">Figuras</span>
+              <span class="service-tag">Réplicas</span>
+              <span class="service-tag">Souvenirs</span>
+              <span class="service-tag">Dioramas</span>
+              <span class="service-tag">Llaveros</span>
+              <span class="service-tag">Decoración</span>
+            </div>
+            <a href="https://wa.me/5491155658622?text=Hola!%20Quiero%20consultar%20sobre%20Impresión%203D"
+               class="service-readmore" target="_blank">
+              Consultar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service 2: Laser -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card-img">
+            <img src="images/cutting-plywood.jpg"
+                 alt="Corte y Grabado Láser"
+                 loading="lazy"
+                 onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Corte+Láser'">
+            <div class="service-card-img-overlay"></div>
+            <div class="service-card-icon"><i class="fas fa-bolt"></i></div>
+          </div>
+          <div class="service-card-body">
+            <h3>Corte y Grabado Láser</h3>
+            <p>
+              Trabajamos MDF, acrílico y madera. Más de 500 diseños disponibles o personalizados.
+              Perfectos para regalos, eventos y emprendimientos.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">Llaveros</span>
+              <span class="service-tag">Lámparas</span>
+              <span class="service-tag">Letreros</span>
+              <span class="service-tag">Cuadros</span>
+              <span class="service-tag">Candy Bar</span>
+              <span class="service-tag">Porta retratos</span>
+            </div>
+            <a href="https://wa.me/5491155658622?text=Hola!%20Quiero%20consultar%20sobre%20Corte%20Láser"
+               class="service-readmore" target="_blank">
+              Consultar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service 3: Papelería -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card-img">
+            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80"
+                 alt="Papelería Creativa y Diseño Gráfico"
+                 loading="lazy"
+                 onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Papelería'">
+            <div class="service-card-img-overlay"></div>
+            <div class="service-card-icon"><i class="fas fa-palette"></i></div>
+          </div>
+          <div class="service-card-body">
+            <h3>Papelería Creativa &amp; Diseño</h3>
+            <p>
+              Tarjetas de presentación, stickers, packaging, etiquetas e identidad visual completa
+              para marcas y emprendedoras. Diseño profesional a tu medida.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">Tarjetas</span>
+              <span class="service-tag">Stickers</span>
+              <span class="service-tag">Packaging</span>
+              <span class="service-tag">Etiquetas</span>
+              <span class="service-tag">Identidad Visual</span>
+            </div>
+            <a href="https://wa.me/5491155658622?text=Hola!%20Quiero%20consultar%20sobre%20Papelería%20y%20Diseño"
+               class="service-readmore" target="_blank">
+              Consultar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service 4: Web Design -->
+        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-card-img">
+            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=80"
+                 alt="Diseño de Sitios Web"
+                 loading="lazy"
+                 onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Diseño+Web'">
+            <div class="service-card-img-overlay"></div>
+            <div class="service-card-icon"><i class="fas fa-laptop-code"></i></div>
+          </div>
+          <div class="service-card-body">
+            <h3>Diseño de Sitios Web</h3>
+            <p>
+              Landing pages y sitios a medida con integración de redes sociales y WhatsApp.
+              Optimizados para mobile y SEO. Tu negocio, en línea.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">Landing Pages</span>
+              <span class="service-tag">Mobile-First</span>
+              <span class="service-tag">SEO</span>
+              <span class="service-tag">WhatsApp</span>
+              <span class="service-tag">Catálogos</span>
+            </div>
+            <a href="https://wa.me/5491155658622?text=Hola!%20Quiero%20consultar%20sobre%20Diseño%20Web"
+               class="service-readmore" target="_blank">
+              Consultar <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ========================
+       3D PRINTING FEATURE
+  ========================= -->
+  <section id="feature-3d">
+    <div class="container">
+      <div class="feature-grid">
+        <div class="feature-text" data-aos="fade-right">
+          <h2 class="section-title">Impresión 3D<br><span class="accent-text">de Alta Calidad</span></h2>
+          <p>
+            Contamos con equipos profesionales para garantizar los mejores resultados en cada pieza.
+            Trabajamos con PLA+ biodegradable, un material resistente, liviano y ecológico.
+          </p>
+          <p>
+            Desde pequeños llaveros hasta dioramas detallados, réplicas de personajes o piezas
+            funcionales: si lo podés imaginar, lo podemos imprimir.
+          </p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check"></i> +5.000 modelos en biblioteca digital propia</li>
+            <li><i class="fas fa-check"></i> PLA+ biodegradable certificado</li>
+            <li><i class="fas fa-check"></i> Figuras, réplicas y coleccionables</li>
+            <li><i class="fas fa-check"></i> Accesorios, decoración y souvenirs</li>
+            <li><i class="fas fa-check"></i> Soportes, organizadores y llaveros</li>
+            <li><i class="fas fa-check"></i> Diseños personalizados desde archivo</li>
+          </ul>
+          <a href="https://wa.me/5491155658622?text=Hola!%20Quiero%20ver%20opciones%20de%20impresión%203D"
+             class="btn btn-primary" target="_blank">
+            Ver opciones <i class="fas fa-arrow-right" style="margin-left:8px;"></i>
+          </a>
+        </div>
+        <div class="feature-image-wrap" data-aos="fade-left">
+          <img src="images/printer_desing2.png"
+               alt="Trabajos de impresión 3D – Makers & Co"
+               loading="lazy"
+               onerror="this.src='images/2150941983.jpg'">
+          <div class="feature-image-badge">
+            <i class="fas fa-cube" style="margin-right:6px;"></i>PLA+ Biodegradable
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       STATS / COUNTERS
+  ========================= -->
+  <section id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
+          <div class="stat-icon"><i class="fas fa-cube"></i></div>
+          <div class="stat-number">
+            <span class="counter" data-target="5000">0</span><span class="suffix">+</span>
+          </div>
+          <div class="stat-label">Diseños 3D disponibles</div>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+          <div class="stat-number">
+            <span class="counter" data-target="500">0</span><span class="suffix">+</span>
+          </div>
+          <div class="stat-label">Diseños Láser disponibles</div>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-number">
+            <span class="counter" data-target="3">0</span><span class="suffix">+</span>
+          </div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-number">
+            <span class="counter" data-target="630">0</span><span class="suffix">+</span>
+          </div>
+          <div class="stat-label">Clientes satisfechos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       LASER FEATURE (dark section)
+  ========================= -->
+  <section id="feature-laser">
+    <div class="laser-bg-overlay"></div>
+    <div class="container laser-inner">
+      <div class="laser-grid">
+        <div class="laser-image" data-aos="fade-right">
+          <img src="images/cutting-plywood.jpg"
+               alt="Corte y grabado láser – Makers & Co"
+               loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Corte+Láser'">
+        </div>
+        <div data-aos="fade-left">
+          <h2 class="section-title">Corte &amp; Grabado Láser<br><span class="accent-text">Personalizado</span></h2>
+          <p style="margin-bottom:16px;">
+            Nuestro servicio de corte y grabado láser trabaja sobre MDF, acrílico y madera con
+            precisión milimétrica. Ideal para regalos únicos, eventos y emprendimientos.
+          </p>
+          <p style="margin-bottom:24px;">
+            Con más de 500 diseños disponibles o a partir de tu propio arte, creamos piezas
+            que sorprenden por su detalle y calidad.
+          </p>
+          <ul class="feature-list" style="margin-bottom:28px;">
+            <li><i class="fas fa-check"></i> Llaveros y accesorios personalizados</li>
+            <li><i class="fas fa-check"></i> Lámparas decorativas e iluminadas</li>
+            <li><i class="fas fa-check"></i> Letreros y cuadros para hogar y locales</li>
+            <li><i class="fas fa-check"></i> Mesas candy bar y decoración de eventos</li>
+            <li><i class="fas fa-check"></i> Porta retratos y álbumes especiales</li>
+          </ul>
+          <a href="https://wa.me/5491155658622?text=Hola!%20Quiero%20consultar%20sobre%20Corte%20y%20Grabado%20Láser"
+             class="btn btn-primary" target="_blank">
+            Pedir presupuesto <i class="fas fa-arrow-right" style="margin-left:8px;"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       GALLERY
+  ========================= -->
+  <section id="galeria">
+    <div class="container">
+      <div class="gallery-header">
+        <div data-aos="fade-right">
+          <h2 class="section-title">Nuestro Estudio<br>en Imágenes</h2>
+        </div>
+        <div data-aos="fade-left">
+          <p>
+            Recorrés nuestra galería para conocernos y ver algunos de nuestros trabajos y producciones.
+            Cada pieza es el resultado de dedicación y pasión por los detalles.
+          </p>
+        </div>
+      </div>
+      <div class="gallery-grid" data-aos="fade-up">
+        <div class="gallery-item">
+          <img src="images/printer_desing2.png"
+               alt="Trabajos de impresión 3D" loading="lazy"
+               onerror="this.src='images/printer_desing2.png'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/cutting-plywood.jpg"
+               alt="Corte láser" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/E63946?text=Laser'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/browser.png"
+               alt="Diseño gráfico" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Diseño'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/casco_senna.png"
+               alt="Figuras 3D" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Figuras+3D'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/yoda.png"
+               alt="Diseño web" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Web+Design'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/F1_pared.jpg"
+               alt="Papelería" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/E63946?text=Papelería'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/candelabro.jpg"
+               alt="Coleccionables" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Coleccionables'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/arbo_family.jpg"
+               alt="Grabados" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Grabados'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+		<div class="gallery-item">
+          <img src="images/Reloj_france.jpg"
+               alt="Grabados" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Grabados'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+		<div class="gallery-item">
+          <img src="images/silla_barbero.jpg"
+               alt="Grabados" loading="lazy"
+               onerror="this.src='https://placehold.co/600x400/16213E/FF6B35?text=Grabados'">
+          <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:36px;">
+        <a href="https://www.instagram.com/makersvg" target="_blank" class="btn btn-outline">
+          <i class="fab fa-instagram" style="margin-right:8px;"></i>Ver más en @makersvg
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       PAYMENT / SHIPPING STRIP
+  ========================= -->
+  <div id="info-strip">
+    <div class="container">
+      <div class="info-strip-inner">
+        <div class="info-strip-item">
+          <i class="fas fa-credit-card"></i>
+          <div><strong>Todos los medios de pago</strong><span style="color:var(--color-text); font-size:0.78rem; display:block;">MercadoPago · Tarjetas · Transferencias</span></div>
+        </div>
+        <div class="info-strip-item">
+          <i class="fas fa-truck"></i>
+          <div><strong>Mercado Envíos</strong><span style="color:var(--color-text); font-size:0.78rem; display:block;">Enviamos a todo el país</span></div>
+        </div>
+        <div class="info-strip-item">
+          <i class="fas fa-store"></i>
+          <div><strong>Retiro en local</strong><span style="color:var(--color-text); font-size:0.78rem; display:block;">Villa Gesell, Buenos Aires</span></div>
+        </div>
+        <div class="info-strip-item">
+          <i class="fab fa-whatsapp" style="color:#25D366;"></i>
+          <div><strong>Atención personalizada</strong><span style="color:var(--color-text); font-size:0.78rem; display:block;">Respondemos rápido</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================
+       CONTACT SECTION
+  ========================= -->
+  <section id="contacto">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:50px;">
+        <h2 class="section-title center" data-aos="fade-up">Hablemos de tu Proyecto</h2>
+        <p class="section-subtitle center" data-aos="fade-up" data-aos-delay="100">
+          Completá el formulario o escribinos directamente al WhatsApp. Respondemos rápido.
+        </p>
+      </div>
+      <div class="contact-grid">
+
+        <div class="contact-info" data-aos="fade-right">
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="contact-info-text">
+              <strong>WhatsApp</strong>
+              <a href="https://wa.me/5491155658622" target="_blank">+54 11 5565-8622</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fab fa-instagram"></i></div>
+            <div class="contact-info-text">
+              <strong>Instagram</strong>
+              <a href="https://instagram.com/makersvg" target="_blank">@makersvg</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-info-text">
+              <strong>Ubicación</strong>
+              <span>Villa Gesell, Buenos Aires, Argentina</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-clock"></i></div>
+            <div class="contact-info-text">
+              <strong>Horarios de atención</strong>
+              <span>Lunes a Sábado · 9:00 a 19:00 hs</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-truck"></i></div>
+            <div class="contact-info-text">
+              <strong>Envíos</strong>
+              <span>Mercado Envíos · Todo el país</span>
+            </div>
+          </div>
+
+          <div style="margin-top:30px;">
+            <a href="https://wa.me/5491155658622?text=Hola!%20Vi%20su%20web%20y%20quiero%20consultar%20sobre%20sus%20servicios"
+               class="btn btn-primary" target="_blank" style="width:100%; text-align:center;">
+              <i class="fab fa-whatsapp" style="margin-right:8px;"></i>Escribir por WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap" data-aos="fade-left">
+          <h3><i class="fas fa-paper-plane" style="color:var(--color-primary); margin-right:10px;"></i>Enviar consulta</h3>
+          <form action="https://formsubmit.co/federicosg210291@gmail.com" method="POST">
+            <!-- FormSubmit config -->
+            <input type="hidden" name="_subject" value="Nueva consulta desde Makers & Co Web">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="">
+            <input type="text" name="_honey" style="display:none">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre *</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono / WhatsApp</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+54 11 XXXX-XXXX">
+            </div>
+            <div class="form-group">
+              <label for="servicio">Servicio de interés *</label>
+              <select id="servicio" name="servicio" required>
+                <option value="" disabled selected>Seleccioná un servicio…</option>
+                <option value="Impresión 3D">Impresión 3D</option>
+                <option value="Corte Láser">Corte y Grabado Láser</option>
+                <option value="Papelería y Diseño">Papelería y Diseño Gráfico</option>
+                <option value="Sitio Web">Diseño de Sitio Web</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mensaje">Mensaje *</label>
+              <textarea id="mensaje" name="mensaje" placeholder="Contanos tu proyecto o consulta…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">
+              Enviar consulta <i class="fas fa-paper-plane" style="margin-left:8px;"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       CAPA 8 SISTER COMPANY
+  ========================= -->
+  <section id="capa8">
+    <div class="container">
+      <div class="capa8-inner" data-aos="fade-up">
+        <div>
+          <div class="capa8-label">Empresa hermana</div>
+          <div class="capa8-name">Capa 8 <span>Electronica</span></div>
+          <div class="capa8-desc">
+            Reparación de electrónica, PC, armado de redes y CCTV
+          </div>
+        </div>
+        <div class="capa8-links">
+          <a href="https://instagram.com/capa8.electronica" class="capa8-link" target="_blank">
+            <i class="fab fa-instagram"></i> @capa8.electronica
+          </a>
+          <a href="https://wa.me/5491135108281" class="capa8-link" target="_blank">
+            <i class="fab fa-whatsapp"></i> +54 11 3510-8281
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       FOOTER
+  ========================= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <svg width="200" height="66" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px;">
+  <polygon points="50,5 88,27 88,70 50,92 12,70 12,27" stroke="#FF8C00" stroke-width="2" fill="rgba(255,140,0,0.06)"/>
+  <polygon points="30,52 50,42 70,52 50,62" stroke="#FF8C00" stroke-width="1.5" fill="rgba(255,140,0,0.12)"/>
+  <polygon points="30,52 30,68 50,78 50,62" stroke="rgba(255,140,0,0.6)" stroke-width="1.2" fill="rgba(255,140,0,0.07)"/>
+  <polygon points="70,52 70,68 50,78 50,62" stroke="rgba(255,140,0,0.6)" stroke-width="1.2" fill="rgba(255,140,0,0.09)"/>
+  <rect x="44" y="14" width="12" height="14" rx="1.5" fill="rgba(255,140,0,0.15)" stroke="#FF8C00" stroke-width="1.5"/>
+  <rect x="46" y="10" width="8" height="6" rx="1" fill="rgba(255,140,0,0.2)" stroke="rgba(255,140,0,0.6)" stroke-width="1"/>
+  <polygon points="48,28 50,32 52,28" fill="#FF8C00"/>
+  <path d="M 34,80 C 36,65 42,48 47,38" stroke="rgba(255,140,0,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 40,81 C 43,66 47,50 49,38" stroke="rgba(255,140,0,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 50,82 C 50,67 50,51 50,38" stroke="#FF8C00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M 60,81 C 57,66 53,50 51,38" stroke="rgba(255,140,0,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 66,80 C 64,65 58,48 53,38" stroke="rgba(255,140,0,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <circle cx="50" cy="32" r="2.5" fill="#FF8C00"/>
+  <circle cx="50" cy="32" r="5" fill="rgba(255,140,0,0.2)"/>
+  <text x="100" y="52" font-family="'Montserrat','Arial Black',sans-serif" font-weight="900" font-size="26" fill="#FFFFFF" letter-spacing="1">MAKERS &amp; CO.</text>
+  <text x="101" y="72" font-family="'Space Mono','Courier New',monospace" font-size="10" fill="#FF8C00" letter-spacing="4">VILLA GESELL</text>
+</svg>
+          <p class="footer-slogan">"Donde tus ideas cobran vida"</p>
+          <p style="font-size:0.82rem; margin-bottom:20px; line-height:1.6;">
+            Estudio de fabricación digital en Villa Gesell. Impresión 3D, corte láser,
+            papelería creativa y diseño web. Desde 2022.
+          </p>
+          <div class="footer-social">
+            <a href="https://instagram.com/makersvg" target="_blank" title="@makersvg">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/5491155658622" target="_blank" title="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://facebook.com" target="_blank" title="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#servicios">Impresión 3D</a></li>
+            <li><a href="#servicios">Corte Láser</a></li>
+            <li><a href="#servicios">Papelería &amp; Diseño</a></li>
+            <li><a href="#servicios">Sitios Web</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#nosotros">Sobre Nosotros</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#hero">Home</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <div class="footer-contact-item">
+            <i class="fab fa-whatsapp"></i>
+            <a href="https://wa.me/5491155658622" target="_blank">+54 11 5565-8622</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fab fa-instagram"></i>
+            <a href="https://instagram.com/makersvg" target="_blank">@makersvg</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Villa Gesell, Buenos Aires, Argentina</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-calendar"></i>
+            <span>Est. 2022</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year">2024</span> Makers &amp; Co · Villa Gesell, Argentina · Est. 2022</span>
+        <span>
+          Empresa hermana: <a href="https://wa.me/5491135108281" style="color:var(--color-accent);" target="_blank">
+            Capa 8 Electronica
+          </a> · @capa8.electronica
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================
+       WHATSAPP FLOAT BUTTON
+  ========================= -->
+  <a href="https://wa.me/5491155658622?text=Hola!%20Vi%20su%20web%20y%20quiero%20consultar%20sobre%20sus%20servicios"
+     class="whatsapp-float" target="_blank" title="Escribinos al WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">¡Escribinos!</span>
+  </a>
+
+  <!-- ========================
+       SCROLL TOP
+  ========================= -->
+  <button class="scroll-top-btn" id="scrollTopBtn" title="Volver al inicio">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ========================
+       SCRIPTS
+  ========================= -->
+  <!-- AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <!-- Swiper -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    /* ---- Loader ---- */
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(() => loader.classList.add('hidden'), 400);
+    });
+
+    /* ---- AOS Init ---- */
+    AOS.init({ duration: 700, once: true, offset: 60 });
+
+    /* ---- Navbar scroll effect ---- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+      document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    /* ---- Hamburger menu ---- */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    /* ---- Smooth scroll for anchor links ---- */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    /* ---- Scroll Top ---- */
+    document.getElementById('scrollTopBtn').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ---- Year update ---- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ---- Services Quick Swiper ---- */
+    new Swiper('.services-quick-slider', {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        640:  { slidesPerView: 2 },
+        900:  { slidesPerView: 3 },
+        1200: { slidesPerView: 4 },
+      }
+    });
+
+    /* ---- Counter animation with IntersectionObserver ---- */
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          entry.target.dataset.counted = 'true';
+          const target = +entry.target.dataset.target;
+          const duration = 2000;
+          const step = target / (duration / 16);
+          let current = 0;
+          const update = () => {
+            current = Math.min(current + step, target);
+            entry.target.textContent = Math.floor(current).toLocaleString('es-AR');
+            if (current < target) requestAnimationFrame(update);
+          };
+          requestAnimationFrame(update);
+        }
+      });
+    }, { threshold: 0.3 });
+    counters.forEach(c => counterObserver.observe(c));
+
+    /* ---- Gallery lightbox (simple) ---- */
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        if (!img) return;
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;`;
+        const bigImg = document.createElement('img');
+        bigImg.src = img.src;
+        bigImg.style.cssText = `max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);`;
+        overlay.appendChild(bigImg);
+        overlay.addEventListener('click', () => overlay.remove());
+        document.body.appendChild(overlay);
+      });
+    });
+  </script>
+
+  <!--
+  ======================================================
+  LISTA DE CAMBIOS RESPECTO A MAFLEX ORIGINAL
+  ======================================================
+  1. MARCA: Maflex → Makers & Co
+  2. SLOGAN: → "Donde tus ideas cobran vida"
+  3. LOGO: Logo de Makers & Co desde Google Drive (con fallback texto estilizado)
+  4. PALETA: Azul/negro Maflex → Naranja (#FF6B35), Azul oscuro (#1A1A2E), Negro (#0F0F0F)
+  5. SERVICIOS ELIMINADOS: CNC, CTP, Fotopolímeros, Bajada de Película, Cuños, Contrapartes
+  6. SERVICIOS ADAPTADOS: Impresión 3D, Corte Láser (remanente de Maflex), + Papelería, + Sitios Web (nuevo)
+  7. ESTADÍSTICAS: 5.000+ diseños 3D / 500+ láser / 3+ años / 1.000+ clientes
+  8. SOBRE NOSOTROS: Texto completamente nuevo para Makers & Co, fundada 2022 Villa Gesell
+  9. GALERÍA: Imágenes reemplazadas con Drive + Unsplash libres de royalties
+  10. CONTACTO: WhatsApp +54 11 5565-8622 / Instagram @makersvg / Villa Gesell
+  11. FORMULARIO: FormSubmit.co, campos: Nombre/Email/Tel/Servicio/Mensaje
+  12. WHATSAPP FLOTANTE: Link directo con mensaje pre-cargado
+  13. FOOTER: Empresa hermana Capa 8 Electronica (@capa8.electronica / +54 11 3510-8281)
+  14. MEDIOS DE PAGO: MercadoPago, tarjetas, transferencias (strip informativo)
+  15. ENVÍOS: Mercado Envíos a todo el país
+  16. HERO: Revolution Slider → CSS animated hero con grid, orbs y partículas
+  17. TECH: WordPress/Elementor → HTML/CSS/JS puro, AOS + Swiper CDN, sin backend
+  18. RESPONSIVE: Mobile-first, breakpoints 480/640/768/900/1200px
+  19. IMÁGENES: loading="lazy" en todas, onerror fallback a placehold.co con colores de marca
+  20. ANIMACIONES: IntersectionObserver para contadores, AOS para secciones, CSS orbs para hero
+  ======================================================
+  -->
+
+</body>
+</html>
