@@ -1243,12 +1243,47 @@
     /* ===========================
        RESPONSIVE FIXES
     =========================== */
-    @media (max-width: 768px) {
+ @media (max-width: 768px) {
       #hero { min-height: 90vh; }
       .hero-buttons { flex-direction: column; align-items: center; }
       .contact-form-wrap { padding: 24px; }
       .capa8-inner { flex-direction: column; }
     }
+
+    /* Pills de servicios en el hero */
+    .hero-services {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .hero-service-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,107,53,0.12);
+      border: 1px solid rgba(255,107,53,0.4);
+      color: var(--color-white);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .hero-service-pill:hover {
+      background: rgba(255,107,53,0.28);
+      border-color: var(--color-primary);
+      color: var(--color-white);
+      transform: translateY(-2px);
+    }
+    .hero-service-pill i {
+      color: var(--color-primary);
+      font-size: 0.9rem;
+    }
+
   </style>
 </head>
 <body>
@@ -1395,7 +1430,7 @@
     </div>
   </nav>
 
-  <!-- ========================
+<!-- ========================
        HERO
   ========================= -->
   <section id="hero">
@@ -1410,15 +1445,13 @@
         <i class="fas fa-map-marker-alt"></i>
         Villa Gesell · Est. 2022
       </div>
-<h1 class="hero-title">
+      <h1 class="hero-title">
         Fabricación Digital
         <span class="brand-name">en Villa Gesell</span>
       </h1>
-
       <p class="hero-slogan">
         <em>Makers &amp; Co</em> — "Donde tus ideas cobran vida"
       </p>
-
       <div class="hero-services">
         <a href="#feature-3d" class="hero-service-pill">
           <i class="fas fa-cube"></i> Impresión 3D
@@ -1433,7 +1466,6 @@
           <i class="fas fa-laptop-code"></i> Diseño Web
         </a>
       </div>
-
       <div class="hero-buttons">
         <a href="#servicios" class="btn btn-primary">
           <i class="fas fa-cube" style="margin-right:8px;"></i>Nuestros Servicios
